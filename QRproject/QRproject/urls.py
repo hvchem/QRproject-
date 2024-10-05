@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 """
 URL configuration for QRproject project.
 
@@ -35,3 +36,42 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+=======
+"""
+URL configuration for QRproject project.
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/5.0/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from os import stat
+from django.contrib import admin
+from django.urls import include, path
+from . import settings
+from django.conf.urls.static import static
+
+from rest_framework_simplejwt.views import TokenObtainPairView , TokenRefreshView
+
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('QRcode/', include(('QRcode.urls', 'QRcode') , namespace='QRcode')),
+    path('api/auth/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/',include('QRcode.urls')),
+    # path('api/generate_qr_code/', generate_qr_code, name='generate_qr_code'),
+
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+>>>>>>> 49cc1c162d40e4b298df25389748a49b7cebbf23
